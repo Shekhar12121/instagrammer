@@ -7,8 +7,8 @@ const app = express();
 
 app.use(cors());
 app.use(bodyParser.json({ type: 'json' }))
-app.use(express.static(path.join(__dirname, 'src/app')));
-//app.use(express.static(path.join(__dirname, 'dist/insta')));
+//app.use(express.static(path.join(__dirname, 'src/app')));
+app.use(express.static(path.join(__dirname, 'dist')));
 
 mongoose.connect("mongodb://instauser:insta1234@ds227035.mlab.com:27035/datagroup", { useNewUrlParser: true, useUnifiedTopology: true },
 function(err){
@@ -29,7 +29,9 @@ let InstaModel = mongoose.model('InstaModel', instaSchema);
 
 
 
-
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist/begin-project/index.html'));
+});
 
 
 app.post('/dataSend', function (req, res) {
@@ -48,7 +50,7 @@ app.post('/dataSend', function (req, res) {
  });
 
 
-const port = process.env.PORT || 4600
+const port = process.env.PORT || 5100
 
 app.listen(port, function () {
   console.log(`CORS-enabled web server listening on port ${port}`)
